@@ -46,7 +46,8 @@ if [ -x "$RESULT_DIR/pre_deploy.sh" ]; then
     fi
 fi
 
-ln -nsf "$RESULT_DIR" "$INSTALL_DIR"/current
+ln -nsf "$RESULT_DIR" "$INSTALL_DIR"/current_new
+mv -T "$INSTALL_DIR"/current_new "$INSTALL_DIR"/current
 if [ "$?" != 0 ]; then
     echo "Linking to current failed!"
     exit 9
