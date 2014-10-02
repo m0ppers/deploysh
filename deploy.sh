@@ -33,13 +33,13 @@ if [ "$?" -ne 0 ]; then
     exit 6
 fi
 
-if [ ! -d "$RESULT_DIR" ]; then
+if [ ! -d "$INSTALL_DIR"/"$RESULT_DIR" ]; then
     echo "$RESULT_DIR is not present after extraction?"
     exit 7
 fi
 
-if [ -x "$RESULT_DIR/pre_deploy.sh" ]; then
-    ./"$RESULT_DIR"/pre_deploy.sh
+if [ -x "$INSTALL_DIR"/"$RESULT_DIR/pre_deploy.sh" ]; then
+    ./"$INSTALL_DIR/$RESULT_DIR"/pre_deploy.sh "$PRE_DEPLOY_ARGS"
     if [ "$?" != 0 ]; then
         echo "Pre deploy failed with code $?"
         exit 8
@@ -54,7 +54,7 @@ if [ "$?" != 0 ]; then
 fi
 
 if [ -x "$RESULT_DIR/post_deploy.sh" ]; then
-    ./"$RESULT_DIR"/post_deploy.sh "$POST"
+    ./"$INSTALL_DIR/$RESULT_DIR"/post_deploy.sh "$POST_DEPLOY_ARGS"
     if [ "$?" != 0 ]; then
         echo "Post deploy failed with code $?"
         exit 10
